@@ -4,7 +4,7 @@ int main(void) {
     int n;
     scanf("%d", &n);
 
-    int factorial;
+    int factorial=1;
     for (int i = 1; i <= n; ++i) {
         factorial *= i;
     }

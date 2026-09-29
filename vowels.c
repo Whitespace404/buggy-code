@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-static int is_vowel(char c) {
+int is_vowel(char c) {
     return c == 'a' || c == 'e' || c == 'i' || c == 'o' || c == 'u';
 }
 

@@ -8,15 +8,6 @@
 
 _with Rahul Reji_
 <!-- end_slide -->
-
-<!-- jump_to_middle -->
-<!-- alignment: center -->
-<!-- font_size: 3-->
-
-What are the types of
-errors you encounter in a C program?
-<!-- end_slide-->
-
 <!-- font_size: 3-->
 
 1. Compile-time errors
@@ -69,13 +60,10 @@ The compiler is quite helpful, it usually tells you how to fix most compile-time
 
 <!-- new_lines: 2 -->
 <!-- font_size: 2 -->
-
 > A segmentation fault is a failure caused when a process attempts to access a memory segment that it is not allowed to access.
-
 <!-- end_slide -->
 
 <!-- font_size: 5 -->
-
 #### The GNU Debugger
 <!-- newline-->
 <!-- font_size: 2 -->
@@ -89,15 +77,18 @@ $ gdb ./a.out
 ```
 <!-- end_slide -->
 
+<!-- font_size: 4-->
+github.com/whitespace404/buggy-code
+<!-- end_slide -->
 <!-- font_size: 2-->
 
 It will look somewhat like this: 
 ![image:width:50%](image.png)
 <!-- font_size: 2-->
-If it says "Reading symbols from `a.out`", that means you compiled it correctly and are fine to proceed.
+> If it says "Reading symbols from `a.out`", that means you compiled it correctly and are fine to proceed.
 <!--font_size:1 ->
 <!-- newline-->
-If it says "No debugging symbols found", that means you forgot the `-g` flag while compiling.
+> If it says "No debugging symbols found", that means you forgot the `-g` flag while compiling.
 <!--end_slide-->
 
 <!-- font_size: 4-->
@@ -124,8 +115,18 @@ Once you have chosen your breakpoint, run it using the `run` command. The progra
 the breakpoint is encountered.
 <!-- newline-->
 > To quit GDB, use "quit" or "q"
-<!-- end_slide-->
 
+<!-- end_slide-->
+<!-- font_size: 3-->
+# Recap
+<!-- font_size: 2 -->
+1. Compile with gcc -g
+2. Run gdb a.out 
+3. Go for a `layout src`
+4. Within the gdb prompt, set a breakpoint with `b`
+5. Type `run`
+
+<!-- end_slide-->
 <!-- font_size: 4-->
 ### Inspecting variables
 <!-- font_size: 2-->
@@ -143,6 +144,8 @@ Example: `mystring@50` prints the first 50 characters starting at address `mystr
 ### Watchpoints
 <!-- font_size: 2-->
 You can use a watchpoint to stop execution whenever the value of an expression changes, without having to predict a particular place where this may happen.
+
+This is useful when a program gives you weird values and you want to know from where that value was added. You can also set a watch point to an array, not only variables. 
 
 ## Usage:
 `watch [identifier]`: GDB will now break whenever the identifier is written into by the program and its value changes.
@@ -177,22 +180,8 @@ Runs until the next breakpoint
 4. `set variable [variable name] = [value]`: Changes the value of a variable on the fly
 <!-- end_slide -->
 
-<!--font_size: 3-->
-### Van-Eck Sequence
-<!-- font_size: 2-->
+<!--font_size: 2-->
+## These above commands are enough to help you debug.
+Just be thorough with the above commands. It does take some practice knowing when to apply each command. I reccomend you try using GDB and get used to how the code moves, by using `step` and `next`. Do it for like 3-5 programs and get addicted to the process of finding bugs, and you'll be silently grinning next time you get a segfault (hopefully). 
+There is some sort of mysterious charm to debugging, and I hope I helped you guys see the beauty in it. Thank you for coming.
 
-The Van-Eck sequence starts at 0. If the previous term is a "new term" (not in the sequence), the next term is 0. 
-
-If the previous term already is in the sequence, the next term is the "distance to the previous term". As in: 
-
-```latex +render
-$$ \quad a_n = \begin{cases} 0 & \text{if } a_{n-1} \notin \{a_0, \dots, a_{n-2}\} \\ (n-1) - \max\{k < n-1 : a_k = a_{n-1}\} & \text{otherwise} \end{cases} $$
-```
-
-```latex +render
-  (0, 0, 1, 0, 2, 0, 2, 2, 1, 6, 0, 5, 0, 2, 6, 5, 4, 0, 5, 3)
-```
-
-<!-- alignment: center -->
-<!-- font_size: 2-->
-##### Write a program to find the nth term of the Van-Eck sequence.
